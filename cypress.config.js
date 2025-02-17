@@ -1,4 +1,8 @@
 const { defineConfig } = require('cypress')
+// https://github.com/bahmutov/cypress-split
+const cypressSplit = require('cypress-split')
+// https://github.com/bahmutov/cypress-visited-urls
+const cypressVisitedUrls = require('cypress-visited-urls')
 
 module.exports = defineConfig({
   defaultBrowser: 'electron',
@@ -14,9 +18,8 @@ module.exports = defineConfig({
     },
 
     setupNodeEvents(on, config) {
-      // implement node event listeners here
-      // and load any plugins that require the Node environment
-      require('cypress-visited-urls/src/plugin')(on, config)
+      cypressSplit(on, config)
+      cypressVisitedUrls(on, config)
       // return the config object
       return config
     },

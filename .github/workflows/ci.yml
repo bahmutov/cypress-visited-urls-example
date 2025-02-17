@@ -1,0 +1,59 @@
+name: ci
+on: push
+jobs:
+  # split all tests across several GitHub machines
+  prepare:
+    runs-on: ubuntu-22.04
+    # explicitly set the output of this job
+    # so that other jobs can use it
+    outputs:
+      matrix: ${{ steps.prepare.outputs.matrix }}
+    steps:
+      # generate the list using a bash script
+      - name: Create matrix ⊹
+        id: prepare
+        # for reusable workflow, must use the full action reference
+        uses: bahmutov/gh-build-matrix@main
+        with:
+          n: 2 # number of containers to output
+
+  tests:
+    needs: prepare
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v4
+
+      - name: Run Cypress tests 🧪
+        # https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v6
+        env:
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
+
+      - name: Upload visited urls JSON file
+        # https://github.com/actions/upload-artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: visited-urls-${{ strategy.job-index }}
+          path: cypress-visited-urls.json
+
+  combine-visited-urls:
+    needs: tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Download visited urls JSON files
+        # https://github.com/actions/download-artifact
+        uses: actions/download-artifact@v4
+        with:
+          # output folder name
+          path: visited-urls
+          # artifact name pattern
+          pattern: visited-urls-*
+          merge-multiple: true
+
+      - name: Show downloaded files
+        run: ls -la visited-urls
