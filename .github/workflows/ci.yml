@@ -51,8 +51,20 @@ jobs:
 
   combine-visited-urls:
     needs: tests
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v4
+
+      - name: Install dependencies only
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+        env:
+          # we don't need to install the Cypress binary
+          CYPRESS_INSTALL_BINARY: 0
+
       - name: Download visited urls JSON files
         # https://github.com/actions/download-artifact
         uses: actions/download-artifact@v4
@@ -68,3 +80,14 @@ jobs:
 
       - name: Show all visited files
         run: cat visited-urls/*
+
+      - name: Combine visited URLs
+        run: npx merge-visited-urls --files 'visited-urls/*.json' --output 'cypress-visited-urls.json'
+
+      - name: commit updated urls file
+        # https://github.com/stefanzweifel/git-auto-commit-action
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Updated urls file
+          branch: main
+          file_pattern: cypress-visited-urls.json
