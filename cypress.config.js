@@ -10,14 +10,19 @@ module.exports = defineConfig({
     // baseUrl, etc
     env: {
       visitedUrls: {
-        // collect each URL the test runner visits
-        // https://glebbahmutov.com/blog/collect-tested-urls/
-        collect: true,
+        // by default, do not collect any URLS
+        collect: false,
         urlsFilename: 'cypress-visited-urls.json',
       },
     },
 
     setupNodeEvents(on, config) {
+      // only collect visited URLs on CI
+      if (process.env.CI) {
+        console.log('setting to collect visited urls on CI')
+        config.env.visitedUrls.collect = true
+      }
+
       cypressSplit(on, config)
       cypressVisitedUrls(on, config)
       // return the config object

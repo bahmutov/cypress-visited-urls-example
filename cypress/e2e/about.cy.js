@@ -10,11 +10,13 @@ describe('The about page', () => {
       .should('eq', '/public/index.html')
       .log('**check collected urls**')
       .then(() => {
-        const urls = Cypress.env('visitedUrlsSet').values().toArray()
-        expect(urls, 'urls').to.deep.equal([
-          '/public/index.html',
-          '/public/about.html',
-        ])
+        const urls = Cypress.env('visitedUrlsSet')?.values().toArray()
+        if (urls) {
+          expect(urls, 'urls').to.deep.equal([
+            '/public/index.html',
+            '/public/about.html',
+          ])
+        }
       })
   })
 
