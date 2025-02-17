@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: visited-urls-${{ strategy.job-index }}
-          path: cypress-visited-urls-${{ strategy.job-index }}.json
+          path: cypress-visited-urls.json
 
   combine-visited-urls:
     needs: tests
