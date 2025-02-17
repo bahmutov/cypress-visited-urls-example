@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: visited-urls-${{ strategy.job-index }}
-          path: cypress-visited-urls.json
+          path: cypress-visited-urls-${{ strategy.job-index }}.json
 
   combine-visited-urls:
     needs: tests
@@ -57,3 +57,6 @@ jobs:
 
       - name: Show downloaded files
         run: ls -la visited-urls
+
+      - name: Show all visited files
+        run: cat visited-urls/*
