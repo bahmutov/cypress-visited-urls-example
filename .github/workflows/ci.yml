@@ -86,7 +86,12 @@ jobs:
         run: cat visited-urls/*
 
       - name: Combine visited URLs
-        run: npx merge-visited-urls --files 'visited-urls/*.json' --output 'cypress-visited-urls.json'
+        # we pass the output file as the first argument
+        # to merge new information into it, without losing
+        # any existing test url data
+        run: |
+          npx merge-visited-urls --files 'cypress-visited-urls.json,visited-urls/*.json' \
+            --output 'cypress-visited-urls.json'
 
       - name: Show merged URLs
         run: cat cypress-visited-urls.json
