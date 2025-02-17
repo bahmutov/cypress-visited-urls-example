@@ -13,7 +13,7 @@
   "devDependencies": {
     "cypress": "^14.0.3",
     "cypress-split": "^1.24.13",
-    "cypress-visited-urls": "^1.7.1",
+    "cypress-visited-urls": "^1.8.0",
     "prettier": "^3.5.1"
   }
 }
