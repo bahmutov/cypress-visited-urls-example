@@ -2,7 +2,7 @@ const { defineConfig } = require('cypress')
 // https://github.com/bahmutov/cypress-split
 const cypressSplit = require('cypress-split')
 // https://github.com/bahmutov/cypress-visited-urls
-const cypressVisitedUrls = require('cypress-visited-urls')
+const cypressVisitedUrls = require('cypress-visited-urls/src/plugin')
 
 module.exports = defineConfig({
   defaultBrowser: 'electron',
