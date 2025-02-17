@@ -27,6 +27,11 @@ jobs:
       - name: Checkout 🛎
         uses: actions/checkout@v4
 
+      # deleting the visited URLs file helps us
+      # merge partial visited URLs files later
+      - name: Delete visited URLs file in case it exists
+        run: rm -f cypress-visited-urls.json
+
       - name: Run Cypress tests 🧪
         # https://github.com/cypress-io/github-action
         uses: cypress-io/github-action@v6
