@@ -51,7 +51,8 @@ jobs:
 
   combine-visited-urls:
     needs: tests
-    if: github.ref == 'refs/heads/main'
+    # always run this GitHub Actions job, even if previous jobs have failed
+    if: ${{ always() && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-22.04
     permissions:
       # Give the default GITHUB_TOKEN write permission to commit and push the
