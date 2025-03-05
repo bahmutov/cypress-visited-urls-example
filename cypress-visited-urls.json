@@ -3,11 +3,11 @@
     "The about page / goes using the link": [
       {
         "url": "/public/index.html",
-        "duration": 149
+        "duration": 159
       },
       {
         "url": "/public/about.html",
-        "duration": 54
+        "duration": 55
       }
     ]
   },
@@ -15,7 +15,7 @@
     "filtering URLs / filters query parameters": [
       {
         "url": "/public/index.html",
-        "duration": 13
+        "duration": 21
       }
     ]
   },
@@ -23,7 +23,7 @@
     "The home page / goes using the link": [
       {
         "url": "/public/index.html",
-        "duration": 19
+        "duration": 41
       }
     ]
   }
