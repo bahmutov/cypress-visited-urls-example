@@ -5,7 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "cypress run"
+    "test": "cypress run",
+    "find": "DEBUG=cypress-visited-urls find-specs-by-url --filename cypress-visited-urls.json --url index.html"
   },
   "keywords": [],
   "author": "",
