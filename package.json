@@ -11,9 +11,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^14.0.3",
+    "cypress": "^14.1.0",
     "cypress-split": "^1.24.13",
-    "cypress-visited-urls": "^1.9.2",
+    "cypress-visited-urls": "^1.12.0",
     "prettier": "^3.5.1"
   }
 }
