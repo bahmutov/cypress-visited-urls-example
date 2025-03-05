@@ -97,6 +97,12 @@ jobs:
       - name: Show merged URLs
         run: cat cypress-visited-urls.json
 
+      - name: Find specs that test "/about.html" page
+        run: npx find-specs-by-url --url "/about.html" --filename cypress-visited-urls.json
+        env:
+          # show all debug messages
+          DEBUG: cypress-visited-urls
+
       - name: commit updated urls file
         # https://github.com/stefanzweifel/git-auto-commit-action
         uses: stefanzweifel/git-auto-commit-action@v5
