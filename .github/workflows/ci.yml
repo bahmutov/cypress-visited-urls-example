@@ -98,7 +98,7 @@ jobs:
         run: cat cypress-visited-urls.json
 
       - name: Find specs that test "/about.html" page
-        run: npx find-specs-by-url --url "/about.html" --filename cypress-visited-urls.json
+        run: npx find-specs-by-url --url "/about.html" --filename cypress-visited-urls.json --set-gha-outputs --table
         env:
           # show all debug messages
           DEBUG: cypress-visited-urls

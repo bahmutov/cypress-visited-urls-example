@@ -11,6 +11,8 @@ module.exports = defineConfig({
     env: {
       visitedUrls: {
         // by default, do not collect any URLS
+        // to collect, simulate the CI environment and run
+        // "CI=1 npx cypress run"
         collect: false,
         urlsFilename: 'cypress-visited-urls.json',
       },
